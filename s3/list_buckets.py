@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.11
+#!/usr/bin/ envpython3.11
 # this is a test of the emergency broadcast system
 
 import boto3
