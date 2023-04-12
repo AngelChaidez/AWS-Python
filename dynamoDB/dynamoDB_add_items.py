@@ -1,15 +1,17 @@
 #!/usr/bin/ env python3.11
 
+# This script will create a dynamodb table on our AWS account, I am using VScode and am using 
+# the AWS toolkit extension that allows me to connect to my AWS account
 import os 
 import boto3
 from botocore.exceptions import ClientError
-import json 
-from pprint import pprint
+
 
 # Create a DynamoDB table, if it exists then we exit
-seperator = "================"
+separator = "================"
 
 dynamodb = boto3.client('dynamodb')
+
 try:
     table = dynamodb.create_table(
         AttributeDefinitions=[
@@ -212,30 +214,32 @@ except ClientError as e:
 
 print("Table created successfully")
 
+
 # Scan our table and print out all the items
 print("Scanning table")
-print(seperator*10,dynamodb.scan(TableName='The_Office_Season_4'), "\n", seperator*10)
-print("Querying table to return an item")
+print(separator*10,"\n" ,dynamodb.scan(TableName='The_Office_Season_4'), "\n", separator*10)
 
+
+
+print("Querying table to return an item")
 # Querying our table for specific items
 query_table = dynamodb.query(
     TableName='The_Office_Season_4', 
     KeyConditionExpression='Season_Episode_Number = :val', 
     ExpressionAttributeValues={
         ':val': {'S': '04E01'}})
-print(seperator*10, "\n Printing query for Season 04E01 \n", query_table, "\n", seperator*10)
-
-# Remove an Item from the table
+print(separator*10, "\n Printing query for Season 04E01 \n", query_table, "\n", separator*10)
 
 # Delete an item from the table dynamodb table 
 delete_response = dynamodb.delete_item(
     TableName='The_Office_Season_4', 
     Key={'Season_Episode_Number':{'S':'04E01'},'Episode_Title':{'S':'Fun Run (1)'}})
 
-print("Deleting following item from table: \n", seperator*10, delete_response, "\n", seperator*10)
+print("Deleting following item from table: \n", separator*10, delete_response, "\n", separator*10)
 
-# Scanning table to verify deleted item
+# Scanning table to verify deleted item 
 print(dynamodb.scan(TableName='The_Office_Season_4'))
+
 
 # Query table for item deleted
 new_query_table = dynamodb.query(
@@ -243,12 +247,15 @@ new_query_table = dynamodb.query(
     KeyConditionExpression='Season_Episode_Number = :val', 
     ExpressionAttributeValues={
     ':val': {'S': '04E01'}})
-print(seperator*10, "\n Printing query for Season 04E01 \n", new_query_table, "\n", seperator*10)
+print(separator*10, "\n Printing query for Season 04E01 \n", new_query_table, "\n", separator*10)
+
+
 # Delete the table from the database
 delete_table = dynamodb.delete_table(TableName = 'The_Office_Season_4')
-print("Deleting table: \n", delete_table, "\n", seperator*10)
+print("Deleting table: \n", separator*10, delete_table, "\n", separator*10)
+
+
 
 #verify deletion of table
 print(dynamodb.scan(TableName='The_Office_Season_4'))
-
 
