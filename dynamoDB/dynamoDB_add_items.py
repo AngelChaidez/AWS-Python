@@ -11,7 +11,7 @@ from botocore.exceptions import ClientError
 separator = "================"
 
 dynamodb = boto3.client('dynamodb')
-
+"""
 try:
     table = dynamodb.create_table(
         AttributeDefinitions=[
@@ -45,7 +45,7 @@ try:
     print("Table created successfully")
 except ClientError as e:
     print(e)
-
+"""
 # add a singular item to our table
 item = {
     'Season_Episode_Number':{
@@ -214,7 +214,7 @@ except ClientError as e:
 
 print("Table created successfully")
 
-
+"""
 # Scan our table and print out all the items
 print("Scanning table")
 print(separator*10,"\n" ,dynamodb.scan(TableName='The_Office_Season_4'), "\n", separator*10)
@@ -259,3 +259,4 @@ print("Deleting table: \n", separator*10, delete_table, "\n", separator*10)
 #verify deletion of table
 print(dynamodb.scan(TableName='The_Office_Season_4'))
 
+"""
