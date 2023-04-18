@@ -21,6 +21,6 @@ QueueUrl='https://sqs.us-east-1.amazonaws.com/758719472525/SQS_2023-04-17',
 MessageBody= (f"Sucessfully sent: {message}")
 )
 mbody =json.dumps(response, indent=4)
-json_message = json.dumps(response, indent=4, separators=())
+json_message = json.dumps(response, indent=4)
 
 
