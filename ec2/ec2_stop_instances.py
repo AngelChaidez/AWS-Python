@@ -7,13 +7,12 @@ from botocore.exceptions import ClientError
 import schedule
 import datetime
 import time
-import time
 
 
 ec2 = boto3.client('ec2')
 
 regions = [region['RegionName']
-           for region in ec2.describe_regions()['Regions']]
+           for region in ec2.describe_regions()['Regions']] 
 
 # create a cron job to stop all running instances on desired schedule
 def cron_job():
